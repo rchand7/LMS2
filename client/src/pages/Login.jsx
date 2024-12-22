@@ -1,4 +1,3 @@
-// McgPr7oX7v1mMcbN
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,6 +24,7 @@ const Login = () => {
     name: "",
     email: "",
     password: "",
+    username: "", // Added username to the state
   });
   const [loginInput, setLoginInput] = useState({ email: "", password: "" });
 
@@ -64,18 +64,18 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if(registerIsSuccess && registerData){
-      toast.success(registerData.message || "Signup successful.")
+    if (registerIsSuccess && registerData) {
+      toast.success(registerData.message || "Signup successful.");
     }
-    if(registerError){
+    if (registerError) {
       toast.error(registerError.data.message || "Signup Failed");
     }
-    if(loginIsSuccess && loginData){
+    if (loginIsSuccess && loginData) {
       toast.success(loginData.message || "Login successful.");
       navigate("/");
     }
-    if(loginError){ 
-      toast.error(loginError.data.message || "login Failed");
+    if (loginError) {
+      toast.error(loginError.data.message || "Login Failed");
     }
   }, [
     loginIsLoading,
@@ -114,7 +114,18 @@ const Login = () => {
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="username">Email</Label>
+                <Label htmlFor="userName">userName</Label> {/* Added Username field */}
+                <Input
+                  type="text"
+                  name="userName"
+                  value={signupInput.userName}
+                  onChange={(e) => changeInputHandler(e, "signup")}
+                  placeholder="Eg. patel123"
+                  required="true"
+                />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="email">Email</Label>
                 <Input
                   type="email"
                   name="email"
@@ -125,7 +136,7 @@ const Login = () => {
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="username">Password</Label>
+                <Label htmlFor="password">Password</Label>
                 <Input
                   type="password"
                   name="password"
