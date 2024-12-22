@@ -9,14 +9,17 @@ import userRoute from "./routes/user.route.js";
 import courseRoute from "./routes/course.route.js";
 import mediaRoute from "./routes/media.route.js";
 import purchaseRoute from "./routes/purchaseCourse.route.js";
-import courseProgressRoute from "./routes/courseProgress.route.js";  // Only keep this import once
+import courseProgressRoute from "./routes/courseProgress.route.js";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Serve static files from the 'client/dist' directory (adjusting path for correct location)
+// Use import.meta.url to get the current directory
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+// Serve static files from the 'client/dist' directory
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
 // MongoDB connection
