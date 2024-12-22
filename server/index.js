@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import mongoose from "mongoose";
 import connectDB from "./database/db.js";
 import userRoute from "./routes/user.route.js";
 import courseRoute from "./routes/course.route.js";
@@ -15,8 +16,11 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+// Use import.meta.url to get the current directory
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
 // Serve static files from the 'client/dist' directory
-app.use(express.static(path.join(__dirname,"/client/dist")));  // Adjust the path here
+app.use(express.static(path.join(__dirname, "client", "dist")));  // Adjust the path here
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
@@ -30,7 +34,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Serve index.html for all routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname,'client', 'dist', 'index.html'));  // Adjust the path here
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));  // Adjust the path here
 });
 
 // Start the server
